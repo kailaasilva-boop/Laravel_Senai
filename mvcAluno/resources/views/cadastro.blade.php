@@ -9,10 +9,10 @@
     <h1>Cadastro Usuarios</h1>
 
     @if(session('sucess'))
-        <p style="color:green">{{session('sucess')}}</p>
+        <p style="color:greenyellow">{{session('sucess')}}</p>
     @endif
 
-    <form action="{{route('aluno.slvar')}}" method="POST">
+    <form action="{{route('aluno.salvar')}}" method="POST">
         @csrf
         <label for="nome">Nome: </label>
         <input type="text" name="nome" id="nome" placeholder="Nome..." require value="{{ old('nome')}}">
@@ -24,7 +24,7 @@
     </form>
 
     @if($errors->any())
-       <div style="color: red">
+       <div style="color: rebeccapurple">
            <ul>
             @foreach ($errors->all() as $erro)
                    <li>{{$erro}}</li>

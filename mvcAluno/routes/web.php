@@ -7,8 +7,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/aluno/listar',[AlunoController::class, 'listar'])-> name('aluno.listar');
+Route::get('/aluno/listar',[AlunoController::class, 'listar'])->name('aluno.listar');
 
 Route::get('/aluno/cadastrar', function(){ return view('cadastro');})->name('aluno.cadasto');
 
-Route::post('/aluno/salvar',[AlunoContoller::class, 'add'])->name('aluno.salvar');
+//POST - enviar os dados para cadastrar usuários
+Route::post('/aluno/salvar',[AlunoController::class, 'add'])->name('aluno.salvar');
+
+//Atualizar
+Route::get('/aluno{id}/atualizar', [AlunoController::class, 'atualizar'])->name('aluno.atualizar');
+
+Route::put('/aluno/{id}/update', [AlunoController::class, 'update'])->name('aluno.update');
