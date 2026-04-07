@@ -8,15 +8,19 @@ use Illuminate\Http\Request;
 class AlunoController extends Controller
 {
     public function listar(){
-        $query = Aluno::query();
-        $alunos = $query->get();
+        //$query = Aluno::query();
+        //$alunos = $query->get();
+
+        $aluno = Aluno::with('turma')->get();
+        //select * from alunos join turmas on turma_id = turmas.id;
         return view('listar', compact('alunos'));
     }
 
     public function add(Request $request){
         $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:alunos,email'
+            'email' => 'required|string|max:255|unique:alunos,email',
+            'turma_id' => 'nullable|exists:turmas,id'
         ]);
 
         Aluno::create([
@@ -24,7 +28,7 @@ class AlunoController extends Controller
             'email' => $request->email,
         ]);
 
-        return redirect()->back()->with('success','Aluno Cadastrado com sucesso!');
+        return redirect()->back()->with('sucess','Aluno Cadastrado com sucesso!');
     }
 
     public function atualizar($id){
@@ -47,5 +51,11 @@ class AlunoController extends Controller
         return redirect()->back()->with('sucess', 'Aluno atualizado com suceso');
 
     }
-    
+    public function deletar($id){
+        $aluno = Aluno::findOrFail($id); // buscar o aluno para depois deletar
+        $aluno->delete(); // faz o delete no banco de dados
+
+        return redirect()->route('aluno.listar')
+            ->with('success', 'Aluno excluído com sucesso!');
+    }
 }

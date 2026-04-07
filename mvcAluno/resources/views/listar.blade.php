@@ -13,6 +13,9 @@
                 <th>ID</th>
                 <th>NOME</th>
                 <th>EMAIL</th>
+                <th>ID TURMA</th>
+                <th>SERIE</th>
+                <th>NUM SALA</th>
                 <th>Atualizar</th>
                 <th>Deletar</th>
             </tr>
@@ -23,13 +26,18 @@
                 <td>{{$aluno->id}}</td>
                 <td>{{$aluno->nome}}</td>
                 <td>{{$aluno->email}}</td>
-                <td>Faremos na próxima aula</td>
-                <td>Faremos na próxima aula</td>
+                <td>{{$aluno->turma?->id}} </td>
+                <td>{{$aluno->turma?->numSala}}</td>
                 <td>
                     <a href="{{route('aluno.atualizar', $aluno->id)}}">Atualizar</a>
                 </td>
-                <td> Faremos na próxima aula</td>
-            </tr>
+                <form action="{{route('aluno.deletar', $aluno->id)}}" method="POST" onsubmit="returr confirm('Desejo realmente excluir');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Excluir</button>
+                </form>
+
+                </tr>
 
             @empty
             <tr>

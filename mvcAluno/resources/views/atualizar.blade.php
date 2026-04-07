@@ -17,14 +17,15 @@
         @csrf
         @method('PUT')
 
-        <input type="text" name="nome" value="{{old('email', $aluno->email)}}" required>
+        <input type="text" name="nome" value="{{old('nome', $aluno->nome)}}" required>
+        <input type="email" name="email" value="{{old('email', $aluno->email)}}" required>
         <button type="submit">Atualizar</button>
     </form>
 
     @if($erros->any())
        <div style="color: rebeccapurple">
             <ul>
-                @foreach ($@errors->() as $erro)
+                @foreach ($errors->() as $erro)
                     <li>{{erro}}</li>
                 @endforeach
         
